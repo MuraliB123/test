@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Drift Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Database Drift Detection</h1>
+        <form id="driftForm" action="/detect-drift" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="src_db_url">Source DB URL</label>
+                    <input type="text" id="src_db_url" name="src_db_url" required>
+                </div>
+                <div class="form-group">
+                    <label for="ref_db_url">Reference DB URL</label>
+                    <input type="text" id="ref_db_url" name="ref_db_url" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="src_db_username">Source DB Username</label>
+                    <input type="text" id="src_db_username" name="src_db_username" required>
+                </div>
+                <div class="form-group">
+                    <label for="ref_db_username">Reference DB Username</label>
+                    <input type="text" id="ref_db_username" name="ref_db_username" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="src_db_password">Source DB Password</label>
+                    <input type="password" id="src_db_password" name="src_db_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="ref_db_password">Reference DB Password</label>
+                    <input type="password" id="ref_db_password" name="ref_db_password" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Database Objects</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="db_objects" value="tables"> Tables</label>
+                        <label><input type="checkbox" name="db_objects" value="columns"> Columns</label>
+                        <label><input type="checkbox" name="db_objects" value="indexes"> Indexes</label>
+                        <label><input type="checkbox" name="db_objects" value="constraints"> Constraints</label>
+                        <label><input type="checkbox" name="db_objects" value="sequences"> Sequences</label>
+                        <label><input type="checkbox" name="db_objects" value="views"> Views</label>
+                    </div>
+                </div>
+            </div>
+            <div class="con"> 
+                <button type="submit">Detect Drift</button>
+            </div>
+        
+        </form><br>
+           <div>
+            {% if report_available %}
+            <form action="/download-report" method="get">
+                <button class="download-button" type="submit">Download Report</button>
+            </form>
+            {% endif %}
+          </div>
+     </div>
+     
+      
+    
+
+</body>
+</html>
